@@ -59,7 +59,11 @@ export const lightPalette: Palette = {
     foreground: "#0a0e14", // KARMA_LIGHT.primary, editor.foreground
     cursor: "#a86efd", // editorCursor.foreground (Karma highlight purple)
     cursorText: "#ffffff", // background, для legibility на purple cursor
-    selection: "#e5e3ea", // pre-blended `#bab6c0 @ 0x26` over `#ffffff`
+    // Pre-blended approximation of `editor.selectionBackground: #bab6c026` over
+    // the white background. Same convention as Karma Dark for VS Code parity.
+    // Future: when render/ supports NSColor `Alpha Component`, use 8-digit hex
+    // directly so selection blends correctly over arbitrary backgrounds.
+    selection: "#e5e3ea",
     selectedText: "#0a0e14", // foreground
     bold: "#000000", // extra contrast on white bg
     link: "#a86efd", // textLink.foreground (highlight purple)
