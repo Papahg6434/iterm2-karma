@@ -43,12 +43,14 @@
 ```
 .
 ├── colors/
-│   └── karma-dark.itermcolors    # ✅ сгенерированный preset для iTerm2
+│   ├── karma-dark.itermcolors    # ✅ сгенерированный preset для iTerm2 (Dark)
+│   └── karma-light.itermcolors   # ✅ сгенерированный preset для iTerm2 (Light)
 ├── assets/                       # ⏳ превью-скриншоты для README
 ├── src/
 │   ├── palette/
 │   │   ├── types.ts              # ✅ Palette, AnsiColors, UiColors, RgbComponents
-│   │   └── dark.ts               # ✅ darkPalette: Palette (refined ANSI 16 mapping)
+│   │   ├── dark.ts               # ✅ darkPalette: Palette (refined ANSI 16 mapping)
+│   │   └── light.ts              # ✅ lightPalette: Palette (refined Light mapping)
 │   └── render/
 │       ├── color.ts              # ✅ parseHex(hex) -> RgbComponents
 │       ├── color.test.ts         # ✅ unit-тесты parseHex (23 кейса)
