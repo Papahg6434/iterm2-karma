@@ -4,14 +4,14 @@
   },
   "tasks": {
     "build": {
-      "description": "Generate .itermcolors files (requires build.ts — added in next iteration)",
-      "command": "deno run --allow-write build.ts"
+      "description": "Generate .itermcolors files in colors/ from src/palette/",
+      "command": "deno run --allow-write=colors build.ts"
     },
     "fmt": "deno fmt",
     "fmt:check": "deno fmt --check",
     "lint": "deno lint",
     "test": "deno test",
-    "check": "deno check src/"
+    "check": "deno check src/ build.ts"
   },
   "compilerOptions": {
     "strict": true,
