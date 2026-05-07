@@ -39,19 +39,24 @@
 └── AGENTS.md                     # этот файл
 ```
 
-Структура исходников (будет создана при реализации):
+Структура исходников (текущее состояние, ✅ — реализовано):
 ```
 .
-├── colors/                       # сгенерированные .itermcolors (коммитятся в репозиторий)
-├── assets/                       # превью-скриншоты для README
+├── colors/                       # ⏳ сгенерированные .itermcolors (будут коммититься)
+├── assets/                       # ⏳ превью-скриншоты для README
 ├── src/
-│   ├── palette/                  # данные палитры (dark, light, types) — чистые модули
-│   └── render/                   # hex → RGB, формирование XML plist — чистые функции
-├── build.ts                      # entry point: deno run --allow-write build.ts
-├── deno.json                     # tasks: build, fmt, lint, test
-├── README.md                     # инструкции по импорту, превью
-├── LICENSE                       # MIT
-└── .editorconfig
+│   ├── palette/
+│   │   ├── types.ts              # ✅ Palette, AnsiColors, UiColors, RgbComponents
+│   │   └── dark.ts               # ✅ darkPalette: Palette (refined ANSI 16 mapping)
+│   └── render/
+│       ├── color.ts              # ✅ parseHex(hex) -> RgbComponents
+│       └── color.test.ts         # ✅ unit-тесты parseHex (22 кейса)
+├── build.ts                      # ⏳ entry point: deno run --allow-write build.ts
+├── deno.json                     # ✅ tasks: build, fmt, fmt:check, lint, test, check
+├── deno.lock                     # ✅ lock-файл для воспроизводимости
+├── README.md                     # ✅ инструкции по импорту, ссылки
+├── LICENSE                       # ⏳ MIT
+└── .editorconfig                 # ⏳
 ```
 
 ## Ключевые точки входа
