@@ -19,8 +19,12 @@
 ```
 .
 ├── colors/
-│   ├── karma-dark.itermcolors    # сгенерированный preset для iTerm2 (Dark)
-│   └── karma-light.itermcolors   # сгенерированный preset для iTerm2 (Light)
+│   ├── karma-dark.itermcolors          # base Dark
+│   ├── karma-light.itermcolors         # base Light
+│   ├── karma-dark-hc.itermcolors       # high-contrast Dark
+│   ├── karma-light-hc.itermcolors      # high-contrast Light
+│   ├── karma-dark-dimmed.itermcolors   # dimmed Dark (OLED / late-night)
+│   └── karma-light-dimmed.itermcolors  # dimmed Light (off-white)
 ├── assets/
 │   ├── SCREENSHOTS.md            # recipe для freeze-based превью
 │   ├── preview.sh                # true-color ANSI генератор для freeze --execute
@@ -29,8 +33,12 @@
 ├── src/
 │   ├── palette/
 │   │   ├── types.ts              # Palette, AnsiColors, UiColors, RgbComponents
-│   │   ├── dark.ts               # darkPalette: Palette (refined ANSI 16 mapping)
-│   │   └── light.ts              # lightPalette: Palette (refined Light mapping)
+│   │   ├── dark.ts               # darkPalette: Palette (refined ANSI 16, base Dark)
+│   │   ├── light.ts              # lightPalette: Palette (refined Light, base Light)
+│   │   ├── dark-hc.ts            # darkHcPalette — spread override on darkPalette
+│   │   ├── light-hc.ts           # lightHcPalette — spread override on lightPalette
+│   │   ├── dark-dimmed.ts        # darkDimmedPalette — spread override on darkPalette
+│   │   └── light-dimmed.ts       # lightDimmedPalette — spread override on lightPalette
 │   └── render/
 │       ├── color.ts              # parseHex(hex) -> RgbComponents
 │       ├── color.test.ts         # unit-тесты parseHex (23 кейса)

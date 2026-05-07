@@ -10,7 +10,11 @@
  */
 
 import { darkPalette } from "./src/palette/dark.ts";
+import { darkDimmedPalette } from "./src/palette/dark-dimmed.ts";
+import { darkHcPalette } from "./src/palette/dark-hc.ts";
 import { lightPalette } from "./src/palette/light.ts";
+import { lightDimmedPalette } from "./src/palette/light-dimmed.ts";
+import { lightHcPalette } from "./src/palette/light-hc.ts";
 import { renderItermcolors } from "./src/render/itermcolors.ts";
 import type { Palette } from "./src/palette/types.ts";
 
@@ -22,6 +26,16 @@ interface Target {
 const TARGETS: ReadonlyArray<Target> = [
   { palette: darkPalette, outPath: "colors/karma-dark.itermcolors" },
   { palette: lightPalette, outPath: "colors/karma-light.itermcolors" },
+  { palette: darkHcPalette, outPath: "colors/karma-dark-hc.itermcolors" },
+  { palette: lightHcPalette, outPath: "colors/karma-light-hc.itermcolors" },
+  {
+    palette: darkDimmedPalette,
+    outPath: "colors/karma-dark-dimmed.itermcolors",
+  },
+  {
+    palette: lightDimmedPalette,
+    outPath: "colors/karma-light-dimmed.itermcolors",
+  },
 ];
 
 async function main(): Promise<void> {

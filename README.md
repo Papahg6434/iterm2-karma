@@ -23,9 +23,7 @@ Karma is a VS Code theme inspired by Ayu, Lucy, and Andromeda — vibrant accent
 
 ## Installation
 
-1. Download the variant you want from [`colors/`](./colors):
-   - [`karma-dark.itermcolors`](./colors/karma-dark.itermcolors)
-   - [`karma-light.itermcolors`](./colors/karma-light.itermcolors)
+1. Download a variant from [`colors/`](./colors) — see the table below for guidance.
 2. Launch iTerm2 and open Settings (`⌘ + ,`).
 3. Go to **Profiles** → select the profile you want to edit.
 4. On the **Colors** tab, click **Color Presets** → **Import…**.
@@ -39,13 +37,19 @@ You can also grab pre-built `.itermcolors` directly from the [latest GitHub Rele
 
 | Variant | File | When to use |
 |---------|------|-------------|
-| 🌙 Karma Dark | [`colors/karma-dark.itermcolors`](./colors/karma-dark.itermcolors) | Dark backgrounds (Karma's default) |
-| ☀️ Karma Light | [`colors/karma-light.itermcolors`](./colors/karma-light.itermcolors) | Light backgrounds (Karma Light from VS Code) |
+| 🌙 Karma Dark | [`karma-dark.itermcolors`](./colors/karma-dark.itermcolors) | Default — Karma's signature dark theme |
+| ☀️ Karma Light | [`karma-light.itermcolors`](./colors/karma-light.itermcolors) | Karma Light from VS Code — for bright environments |
+| Karma Dark HC | [`karma-dark-hc.itermcolors`](./colors/karma-dark-hc.itermcolors) | High-contrast Dark — pure black background, amplified accents (outdoor / accessibility) |
+| Karma Light HC | [`karma-light-hc.itermcolors`](./colors/karma-light-hc.itermcolors) | High-contrast Light — pure white background, deepened accents (projector / accessibility) |
+| Karma Dark Dimmed | [`karma-dark-dimmed.itermcolors`](./colors/karma-dark-dimmed.itermcolors) | Dimmed Dark — softer accents, lifted background (OLED / late-night) |
+| Karma Light Dimmed | [`karma-light-dimmed.itermcolors`](./colors/karma-light-dimmed.itermcolors) | Dimmed Light — off-white background, gentler accents (long reading sessions) |
 
-Both presets use the **refined ANSI 16 mapping** from the project's [`karma-palette`](./.opencode/skills/karma-palette/SKILL.md) reference — it sidesteps two quirks of Karma's verbatim `terminal.ansi*` ship values:
+All presets use the **refined ANSI 16 mapping** documented in the source comments of [`src/palette/dark.ts`](./src/palette/dark.ts) and [`src/palette/light.ts`](./src/palette/light.ts) — it sidesteps two quirks of Karma's verbatim `terminal.ansi*` ship values:
 
 - **Dark:** `terminal.ansiBlue` and `ansiBrightBlue` are both set to orange in the upstream theme, which makes directories show as orange in `ls --color=auto`. The refined mapping uses Karma's cyan-blue instead.
 - **Light:** `terminal.ansiBlack` is set to white (inverted ANSI 0/7 polarity), which breaks several CLI tools. The refined mapping uses dark for ANSI 0 and a mid-gray for ANSI 7.
+
+The HC and Dimmed variants are derived from the Dark/Light bases via TypeScript object-spread overrides — only the cells that differ are listed explicitly. See [`src/palette/dark-hc.ts`](./src/palette/dark-hc.ts) etc. for the exact deltas.
 
 ## Recommended font
 
@@ -53,7 +57,7 @@ Karma's screenshots use [Iosevka](https://typeof.net/Iosevka/) (`Iosevka Term` o
 
 ## Building from source
 
-The presets are produced by a Deno build script from a single TypeScript palette source in `src/palette/`. End users **do not need** Deno — both `.itermcolors` files are committed to the repository.
+The presets are produced by a Deno build script from a single TypeScript palette source in `src/palette/`. End users **do not need** Deno — all six `.itermcolors` files are committed to the repository.
 
 ```bash
 # Requires Deno >= 2.0
@@ -67,7 +71,7 @@ deno task fmt:check    # formatting
 deno task lint         # linting
 deno task check        # type-check (strict mode)
 deno task test         # 23 unit tests for the hex parser
-deno task build        # generate both .itermcolors
+deno task build        # generate all 6 .itermcolors
 ```
 
 The codebase follows a Layered + Functional Core / Imperative Shell pattern: `src/palette/` holds pure data, `src/render/` performs pure transformations, and `build.ts` is the only file that performs I/O. See the source comments and `AGENTS.md` for more.
