@@ -10,6 +10,7 @@
  */
 
 import { darkPalette } from "./src/palette/dark.ts";
+import { lightPalette } from "./src/palette/light.ts";
 import { renderItermcolors } from "./src/render/itermcolors.ts";
 import type { Palette } from "./src/palette/types.ts";
 
@@ -20,6 +21,7 @@ interface Target {
 
 const TARGETS: ReadonlyArray<Target> = [
   { palette: darkPalette, outPath: "colors/karma-dark.itermcolors" },
+  { palette: lightPalette, outPath: "colors/karma-light.itermcolors" },
 ];
 
 async function main(): Promise<void> {
