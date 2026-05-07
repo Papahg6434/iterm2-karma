@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint & type-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Format check
+        run: deno task fmt:check
+
+      - name: Lint
+        run: deno task lint
+
+      - name: Type check
+        run: deno task check
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Run unit tests
+        run: deno task test
+
+  build:
+    name: Build & verify idempotency
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Build .itermcolors
+        run: deno task build
+
+      - name: Verify build is idempotent
+        # The committed colors/*.itermcolors files MUST equal what `deno task
+        # build` produces. If not, the build is non-deterministic OR someone
+        # changed src/palette/* without re-running the build.
+        run: |
+          if ! git diff --exit-code colors/; then
+            echo "::error::Committed .itermcolors files differ from a fresh build."
+            echo "::error::Run \`deno task build\` locally and commit the result."
+            exit 1
+          fi
+
+      - name: Validate generated plists
+        # plutil is macOS-only, so we use Python's plistlib (cross-platform)
+        # to confirm each .itermcolors file is a syntactically valid plist 1.0.
+        run: |
+          for f in colors/*.itermcolors; do
+            python3 - <<PY
+          import plistlib, sys
+          with open("$f", "rb") as fh:
+              plistlib.load(fh)
+          print("$f: OK")
+          PY
+          done

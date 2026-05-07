@@ -31,6 +31,9 @@
 │   └── skills/                   # AI Factory skills + симлинки на кастомные
 ├── .opencode/                    # контекст для OpenCode
 │   └── skills/                   # AI Factory skills + кастомные (itermcolors-format, karma-palette)
+├── .github/                      # GitHub-specific config
+│   └── workflows/
+│       └── ci.yml                # ✅ CI: fmt/lint/check/test + idempotency + plist validation
 ├── .git/                         # репозиторий Git
 ├── .ai-factory.json              # метаданные AI Factory (отслеживает установленные skills)
 ├── .mcp.json                     # конфиг MCP-серверов для Claude Code
