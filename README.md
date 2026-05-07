@@ -1,5 +1,8 @@
 # iTerm2 Karma
 
+[![CI](https://github.com/aspatari/iterm2-karma/actions/workflows/ci.yml/badge.svg)](https://github.com/aspatari/iterm2-karma/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 > Цветовая тема [Karma](https://sreetamdas.com/karma) от [Шритама Даса](https://github.com/sreetamdas) — порт для [iTerm2](https://iterm2.com).
 
 Karma — VS Code тема, вдохновлённая Ayu, Lucy и Andromeda, с яркими акцентами на тёмном и светлом фоне. Этот репозиторий портирует её палитру в формат `.itermcolors`, чтобы терминал выглядел согласованно с редактором.
