@@ -78,6 +78,7 @@
 | README | `README.md` | Landing page: инструкции импорта в iTerm2, варианты темы, credits |
 | Спецификация | `.ai-factory/DESCRIPTION.md` | Цели, фичи, стек, архитектурные заметки, нефункциональные требования |
 | Архитектура | `.ai-factory/ARCHITECTURE.md` | Layered + Functional Core / Imperative Shell — слои, зависимости, примеры кода |
+| Roadmap | `.ai-factory/ROADMAP.md` | Стратегические вехи (M1–M7): scaffold → Dark → Light → docs → CI → release → stretch |
 | Базовые правила | `.ai-factory/rules/base.md` | Конвенции именования, структуры модулей, обработки ошибок, plist-формат |
 
 ## AI-контекст: skills и MCP
