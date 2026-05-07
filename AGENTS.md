@@ -42,7 +42,8 @@
 Структура исходников (текущее состояние, ✅ — реализовано):
 ```
 .
-├── colors/                       # ⏳ сгенерированные .itermcolors (будут коммититься)
+├── colors/
+│   └── karma-dark.itermcolors    # ✅ сгенерированный preset для iTerm2
 ├── assets/                       # ⏳ превью-скриншоты для README
 ├── src/
 │   ├── palette/
@@ -50,13 +51,14 @@
 │   │   └── dark.ts               # ✅ darkPalette: Palette (refined ANSI 16 mapping)
 │   └── render/
 │       ├── color.ts              # ✅ parseHex(hex) -> RgbComponents
-│       └── color.test.ts         # ✅ unit-тесты parseHex (22 кейса)
-├── build.ts                      # ⏳ entry point: deno run --allow-write build.ts
+│       ├── color.test.ts         # ✅ unit-тесты parseHex (23 кейса)
+│       └── itermcolors.ts        # ✅ renderItermcolors(palette) -> XML plist
+├── build.ts                      # ✅ оркестратор: палитра → render → colors/
 ├── deno.json                     # ✅ tasks: build, fmt, fmt:check, lint, test, check
 ├── deno.lock                     # ✅ lock-файл для воспроизводимости
 ├── README.md                     # ✅ инструкции по импорту, ссылки
-├── LICENSE                       # ⏳ MIT
-└── .editorconfig                 # ⏳
+├── LICENSE                       # ⏳ MIT (M4)
+└── .editorconfig                 # ⏳ (M4)
 ```
 
 ## Ключевые точки входа
