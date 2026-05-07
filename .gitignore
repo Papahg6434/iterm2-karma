@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Editors
+*.swp
+*.swo
+*~
+.idea/
+
+# Node (if ever added at root level)
+node_modules/
+
+# Build cache / temp
+*.tmp
+*.bak
+
+# Local environment
+.env
+.env.local
+
+# AI Factory: ephemeral payloads (regenerated on demand)
+.ai-factory/config.update.json
