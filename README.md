@@ -48,6 +48,26 @@ Karma is a VS Code theme inspired by Ayu, Lucy, and Andromeda — vibrant accent
 
 ## Installation
 
+Two ways, pick one:
+
+### Option A — Drop-in Dynamic Profile (zero-click, recommended)
+
+```bash
+# Clone or download just the profiles you want, then:
+mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
+cp profiles/karma-*.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/
+```
+
+iTerm2 picks up the new profiles **immediately** — no restart, no clicks. All six variants appear in the **Profiles** menu (and in the iTerm2 ▶ Open ▶ … profile list). Each profile is identified by a stable Guid, so re-installing later updates the existing profile rather than duplicating it.
+
+To switch: Profiles menu → choose the variant. Set one as default via Settings → Profiles → "Other Actions" → Set as Default.
+
+To uninstall: just delete the JSON files from `~/Library/Application Support/iTerm2/DynamicProfiles/`. iTerm2 reverts to your previous setup.
+
+### Option B — Color Preset import (the classic flow)
+
+If you want to apply a Karma palette to an *existing* profile (keeping its font, behaviour, key bindings), use the `.itermcolors` color presets:
+
 1. Download a variant from [`colors/`](./colors) — see the table below for guidance.
 2. Launch iTerm2 and open Settings (`⌘ + ,`).
 3. Go to **Profiles** → select the profile you want to edit.
@@ -57,6 +77,16 @@ Karma is a VS Code theme inspired by Ayu, Lucy, and Andromeda — vibrant accent
 7. Done. ✨
 
 You can also grab pre-built `.itermcolors` directly from the [latest GitHub Release](https://github.com/aspatari/iterm2-karma/releases/latest).
+
+### Which to choose
+
+| Goal | Use |
+|------|-----|
+| Switch entire profile (font, colors, behavior) with one click | **Dynamic Profile** (Option A) |
+| Apply Karma colors to your already-configured profile | **Color Preset** (Option B) |
+| Want all six variants visible at once in Profiles menu | **Dynamic Profile** (Option A) |
+| Sync via dotfiles / install script / CI | **Dynamic Profile** (Option A — `cp` is scriptable) |
+| Distribute via [iterm2colorschemes.com](https://iterm2colorschemes.com) lookup | **Color Preset** (Option B — that site indexes presets) |
 
 ## Variants
 
@@ -73,6 +103,14 @@ All presets use the **refined ANSI 16 mapping** documented in the source comment
 
 - **Dark:** `terminal.ansiBlue` and `ansiBrightBlue` are both set to orange in the upstream theme, which makes directories show as orange in `ls --color=auto`. The refined mapping uses Karma's cyan-blue instead.
 - **Light:** `terminal.ansiBlack` is set to white (inverted ANSI 0/7 polarity), which breaks several CLI tools. The refined mapping uses dark for ANSI 0 and a mid-gray for ANSI 7.
+
+#### Visual proof: directories in `ls --color=auto`
+
+<p align="center">
+  <img src="assets/karma-ansi-mapping.webp" alt="Comparison: upstream Karma ansiBlue=orange (left) vs refined ansi.blue=cyan (right) when running ls --color=auto" width="100%">
+</p>
+
+Left side: upstream Karma — directories render as orange because `terminal.ansiBlue = #fd9353`. Right side: this port — directories render as cyan because `ansi.blue = #5ad4e6`. Same `ls --color=auto` invocation, same theme intent, no terminal config changes — just a different ANSI 4 mapping in the preset.
 
 The HC and Dimmed variants are derived from the Dark/Light bases via TypeScript object-spread overrides — only the cells that differ are listed explicitly. See [`src/palette/dark-hc.ts`](./src/palette/dark-hc.ts) etc. for the exact deltas.
 
@@ -95,11 +133,57 @@ The script generates files in `colors/` deterministically: a second run produces
 deno task fmt:check    # formatting
 deno task lint         # linting
 deno task check        # type-check (strict mode)
-deno task test         # 23 unit tests for the hex parser
+deno task test         # unit tests
 deno task build        # generate all 6 .itermcolors
 ```
 
-The codebase follows a Layered + Functional Core / Imperative Shell pattern: `src/palette/` holds pure data, `src/render/` performs pure transformations, and `build.ts` is the only file that performs I/O. See the source comments and `AGENTS.md` for more.
+### Architecture
+
+A small Layered + Functional-Core / Imperative-Shell pipeline. Hex codes live in **exactly one place** (`src/palette/`); everything downstream is a pure transformation.
+
+```
+                 ┌─────────────────────────────────────┐
+                 │  src/palette/  —  the only place    │
+                 │  hex literals exist                 │
+                 │                                     │
+                 │  ├─ types.ts (Palette, AnsiColors)  │
+                 │  ├─ dark.ts        ┐                │
+                 │  ├─ light.ts       │  base         │
+                 │  ├─ dark-hc.ts     ┤  +            │
+                 │  ├─ light-hc.ts    │  spread       │
+                 │  ├─ dark-dimmed.ts ┤  overrides    │
+                 │  └─ light-dimmed.ts┘                │
+                 └────────────┬────────────────────────┘
+                              │ Palette objects
+                              ▼
+                 ┌─────────────────────────────────────┐
+                 │  src/render/  —  pure transforms    │
+                 │                                     │
+                 │  ├─ color.ts          (hex→RGB)     │
+                 │  ├─ itermcolors.ts    (→ XML plist) │
+                 │  └─ preview-data.ts   (→ shell vars)│
+                 └────────────┬────────────────────────┘
+                              │ rendered strings
+                              ▼
+                 ┌─────────────────────────────────────┐
+                 │  build.ts  —  the only file with I/O│
+                 │  (Deno.writeTextFile, Deno.mkdir)   │
+                 └────────────┬────────────────────────┘
+                              │
+                ┌─────────────┼──────────────────────┐
+                ▼             ▼                      ▼
+       colors/karma-*    assets/_preview-data.sh    (stdout logs)
+       .itermcolors      (sourced by preview.sh)
+       (×6)              (sourced by preview.sh)
+                                  │
+                                  ▼
+                              freeze + cwebp
+                                  │
+                                  ▼
+                            assets/karma-*.webp
+```
+
+**Determinism contract:** a second `deno task build` produces zero `git diff` (CI enforces). Top-level plist keys are lex-sorted, RGB components use `Number.toString()` (locale-independent), inner color dicts are alphabetically ordered. See [`AGENTS.md`](./AGENTS.md) for the full architectural invariants.
 
 ## Screenshots
 

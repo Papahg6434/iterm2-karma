@@ -4,8 +4,8 @@
   },
   "tasks": {
     "build": {
-      "description": "Generate .itermcolors files in colors/ + assets/_preview-data.sh from src/palette/",
-      "command": "deno run --allow-write=colors,assets build.ts"
+      "description": "Generate colors/*.itermcolors + profiles/*.json + assets/_preview-data.sh from src/palette/",
+      "command": "deno run --allow-write=colors,profiles,assets build.ts"
     },
     "fmt": "deno fmt",
     "fmt:check": "deno fmt --check",

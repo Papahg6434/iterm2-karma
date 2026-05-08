@@ -21,6 +21,7 @@
 
 import type { AnsiColors, Palette, RgbComponents, UiColors } from "../palette/types.ts";
 import { parseHex } from "./color.ts";
+import { ANSI_KEY_BY_FIELD, UI_KEY_BY_FIELD } from "./iterm-keys.ts";
 
 // --- Plist envelope -------------------------------------------------------
 
@@ -37,41 +38,6 @@ const FOOTER = [
   "</plist>",
   "", // trailing newline (POSIX-friendly)
 ].join("\n");
-
-// --- AnsiColors / UiColors → iTerm2 plist key mapping ---------------------
-// Both records are `Record<keyof X, string>` so the type system enforces a
-// complete mapping — adding a new field to AnsiColors / UiColors without a
-// corresponding entry here is a compile error.
-
-const ANSI_KEY_BY_FIELD: Readonly<Record<keyof AnsiColors, string>> = {
-  black: "Ansi 0 Color",
-  red: "Ansi 1 Color",
-  green: "Ansi 2 Color",
-  yellow: "Ansi 3 Color",
-  blue: "Ansi 4 Color",
-  magenta: "Ansi 5 Color",
-  cyan: "Ansi 6 Color",
-  white: "Ansi 7 Color",
-  brightBlack: "Ansi 8 Color",
-  brightRed: "Ansi 9 Color",
-  brightGreen: "Ansi 10 Color",
-  brightYellow: "Ansi 11 Color",
-  brightBlue: "Ansi 12 Color",
-  brightMagenta: "Ansi 13 Color",
-  brightCyan: "Ansi 14 Color",
-  brightWhite: "Ansi 15 Color",
-};
-
-const UI_KEY_BY_FIELD: Readonly<Record<keyof UiColors, string>> = {
-  background: "Background Color",
-  bold: "Bold Color",
-  cursor: "Cursor Color",
-  cursorText: "Cursor Text Color",
-  foreground: "Foreground Color",
-  link: "Link Color",
-  selectedText: "Selected Text Color",
-  selection: "Selection Color",
-};
 
 // --- Helpers --------------------------------------------------------------
 

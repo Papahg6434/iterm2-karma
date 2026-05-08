@@ -18,13 +18,20 @@
 
 ```
 .
-├── colors/
+├── colors/                             # .itermcolors (Color Preset import flow)
 │   ├── karma-dark.itermcolors          # base Dark
 │   ├── karma-light.itermcolors         # base Light
 │   ├── karma-dark-hc.itermcolors       # high-contrast Dark
 │   ├── karma-light-hc.itermcolors      # high-contrast Light
 │   ├── karma-dark-dimmed.itermcolors   # dimmed Dark (OLED / late-night)
 │   └── karma-light-dimmed.itermcolors  # dimmed Light (off-white)
+├── profiles/                           # Dynamic Profile JSON (drop-in flow)
+│   ├── karma-dark.json                 # cp into ~/Library/Application Support/iTerm2/DynamicProfiles/
+│   ├── karma-light.json                # iTerm2 picks up immediately, no clicks
+│   ├── karma-dark-hc.json              # стабильные Guid'ы — пересоздание = update, не дубль
+│   ├── karma-light-hc.json
+│   ├── karma-dark-dimmed.json
+│   └── karma-light-dimmed.json
 ├── assets/
 │   ├── SCREENSHOTS.md            # recipe для freeze-based превью
 │   ├── preview.sh                # true-color ANSI генератор для freeze --execute
@@ -45,11 +52,14 @@
 │   │   ├── dark-dimmed.ts        # darkDimmedPalette — spread override on darkPalette
 │   │   └── light-dimmed.ts       # lightDimmedPalette — spread override on lightPalette
 │   └── render/
-│       ├── color.ts              # parseHex(hex) -> RgbComponents, parseHexBytes(hex) -> RgbBytes
-│       ├── color.test.ts         # unit-тесты для color.ts
-│       ├── itermcolors.ts        # renderItermcolors(palette) -> XML plist
-│       ├── preview-data.ts       # paletteToShell, renderPreviewData -> assets/_preview-data.sh
-│       └── preview-data.test.ts  # unit-тесты для preview-data.ts
+│       ├── color.ts                  # parseHex(hex), parseHexBytes(hex)
+│       ├── color.test.ts             # unit-тесты для color.ts
+│       ├── iterm-keys.ts             # ANSI_KEY_BY_FIELD, UI_KEY_BY_FIELD (shared)
+│       ├── itermcolors.ts            # renderItermcolors(palette) -> XML plist
+│       ├── dynamic-profile.ts        # renderDynamicProfile(palette, opts) -> JSON
+│       ├── dynamic-profile.test.ts   # unit-тесты dynamic-profile.ts
+│       ├── preview-data.ts           # paletteToShell, renderPreviewData -> _preview-data.sh
+│       └── preview-data.test.ts      # unit-тесты preview-data.ts
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                # CI: fmt/lint/check/test + idempotency + plist validation
@@ -68,8 +78,8 @@
 | `deno task fmt:check` | Проверка форматирования (CI gate) |
 | `deno task lint` | Линтинг |
 | `deno task check` | Type-check (strict mode) |
-| `deno task test` | 39 unit-тестов (parseHex, parseHexBytes, paletteToShell, renderPreviewData) |
-| `deno task build` | Генерирует `colors/karma-{dark,light}.itermcolors` |
+| `deno task test` | 51 unit-тестов (parseHex, parseHexBytes, paletteToShell, renderPreviewData, renderDynamicProfile) |
+| `deno task build` | Генерирует `colors/*.itermcolors`, `profiles/*.json`, `assets/_preview-data.sh` (всё детерминированно) |
 
 ## Конвенции
 

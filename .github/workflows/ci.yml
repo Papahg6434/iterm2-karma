@@ -65,18 +65,18 @@ jobs:
         run: deno task build
 
       - name: Verify build is idempotent
-        # The committed colors/*.itermcolors files AND assets/_preview-data.sh
-        # MUST equal what `deno task build` produces. If not, the build is
-        # non-deterministic OR someone changed src/palette/* without re-running
-        # the build.
+        # All committed build artifacts MUST equal what `deno task build`
+        # produces: colors/*.itermcolors, profiles/*.json, and
+        # assets/_preview-data.sh. If not, the build is non-deterministic OR
+        # someone changed src/palette/* without re-running the build.
         run: |
-          if ! git diff --exit-code colors/ assets/_preview-data.sh; then
+          if ! git diff --exit-code colors/ profiles/ assets/_preview-data.sh; then
             echo "::error::Committed build artifacts differ from a fresh build."
             echo "::error::Run \`deno task build\` locally and commit the result."
             exit 1
           fi
 
-      - name: Validate generated plists
+      - name: Validate generated .itermcolors plists
         # plutil is macOS-only, so we use Python's plistlib (cross-platform)
         # to confirm each .itermcolors file is a syntactically valid plist 1.0.
         run: |
@@ -85,6 +85,24 @@ jobs:
           import plistlib, sys
           with open("$f", "rb") as fh:
               plistlib.load(fh)
+          print("$f: OK")
+          PY
+          done
+
+      - name: Validate generated Dynamic Profile JSON
+        # Each profiles/*.json must be valid JSON with the iTerm2-required
+        # shape: { "Profiles": [ { "Name": <str>, "Guid": <str>, ... } ] }.
+        run: |
+          for f in profiles/*.json; do
+            python3 - <<PY
+          import json, sys
+          with open("$f") as fh:
+              doc = json.load(fh)
+          assert isinstance(doc.get("Profiles"), list), "missing Profiles list"
+          assert len(doc["Profiles"]) >= 1, "empty Profiles list"
+          for p in doc["Profiles"]:
+              for required in ("Name", "Guid"):
+                  assert required in p, f"profile missing {required!r}"
           print("$f: OK")
           PY
           done
