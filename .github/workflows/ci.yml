@@ -65,12 +65,13 @@ jobs:
         run: deno task build
 
       - name: Verify build is idempotent
-        # The committed colors/*.itermcolors files MUST equal what `deno task
-        # build` produces. If not, the build is non-deterministic OR someone
-        # changed src/palette/* without re-running the build.
+        # The committed colors/*.itermcolors files AND assets/_preview-data.sh
+        # MUST equal what `deno task build` produces. If not, the build is
+        # non-deterministic OR someone changed src/palette/* without re-running
+        # the build.
         run: |
-          if ! git diff --exit-code colors/; then
-            echo "::error::Committed .itermcolors files differ from a fresh build."
+          if ! git diff --exit-code colors/ assets/_preview-data.sh; then
+            echo "::error::Committed build artifacts differ from a fresh build."
             echo "::error::Run \`deno task build\` locally and commit the result."
             exit 1
           fi

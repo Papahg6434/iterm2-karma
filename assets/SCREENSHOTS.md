@@ -39,29 +39,35 @@ magick assets/karma-dark.png -quality 90 assets/karma-dark.webp
 
 ## End-to-end pipeline
 
-From the project root, run both lines. Total time: ~2 seconds.
+From the project root, run the script below to regenerate all 6 screenshots.
+Total time: ~10 seconds.
+
+> **Prerequisite:** run `deno task build` first to refresh
+> `assets/_preview-data.sh` from the TypeScript palettes. `preview.sh`
+> sources that file and refuses to run without it.
 
 ```bash
-freeze --execute "$PWD/assets/preview.sh dark" \
-  --output assets/karma-dark.png \
-  --window \
-  --font.size 14 --line-height 1.4 \
-  --padding "32,40" \
-  --background "#0a0e14" \
-  --shadow.blur 24 --shadow.x 0 --shadow.y 12
+declare -A BG=(
+  [dark]="#0a0e14"
+  [light]="#ffffff"
+  [dark-hc]="#000000"
+  [light-hc]="#ffffff"
+  [dark-dimmed]="#14181f"
+  [light-dimmed]="#f5f3f7"
+)
 
-freeze --execute "$PWD/assets/preview.sh light" \
-  --output assets/karma-light.png \
-  --window \
-  --font.size 14 --line-height 1.4 \
-  --padding "32,40" \
-  --background "#ffffff" \
-  --shadow.blur 24 --shadow.x 0 --shadow.y 12
+for variant in "${!BG[@]}"; do
+  freeze --execute "$PWD/assets/preview.sh ${variant}" \
+    --output "assets/karma-${variant}.png" \
+    --window \
+    --font.size 14 --line-height 1.4 \
+    --padding "32,40" \
+    --background "${BG[$variant]}" \
+    --shadow.blur 24 --shadow.x 0 --shadow.y 12
 
-cwebp -q 90 assets/karma-dark.png  -o assets/karma-dark.webp
-cwebp -q 90 assets/karma-light.png -o assets/karma-light.webp
-
-rm assets/karma-dark.png assets/karma-light.png
+  cwebp -q 90 "assets/karma-${variant}.png" -o "assets/karma-${variant}.webp"
+  rm "assets/karma-${variant}.png"
+done
 ```
 
 The `freeze` invocations use:
@@ -87,17 +93,31 @@ The `freeze` invocations use:
 
 ## How `preview.sh` works
 
-The script supports two variants — `dark` (default) and `light`:
+The script supports six variants — the same set as `colors/karma-*.itermcolors`:
 
 ```bash
-./assets/preview.sh dark
+./assets/preview.sh dark            # default
 ./assets/preview.sh light
+./assets/preview.sh dark-hc         # high-contrast
+./assets/preview.sh light-hc
+./assets/preview.sh dark-dimmed     # dimmed
+./assets/preview.sh light-dimmed
 ```
 
-Both produce identical layout, differing only in the embedded palette. The
-script uses 24-bit true-color escape codes (`\033[38;2;R;G;Bm`) with the
-exact Karma palette hex values from `src/palette/{dark,light}.ts` — this
-makes the output identical regardless of the calling terminal's profile.
+All variants produce identical layout, differing only in the embedded palette.
+The script uses 24-bit true-color escape codes (`\033[38;2;R;G;Bm`).
+
+### Single source of truth for palette data
+
+The script does **not** hardcode any hex values. It sources
+`assets/_preview-data.sh`, an auto-generated bash file containing RGB triples
+for every variant. That file is produced by `deno task build` from the
+TypeScript palettes in `src/palette/*.ts` via `src/render/preview-data.ts`.
+
+This preserves the project invariant from `AGENTS.md`: **hex literals exist
+exclusively in `src/palette/{dark,light}.ts`** (plus their `*-hc.ts` /
+`*-dimmed.ts` overrides). If you change a palette, run `deno task build` to
+regenerate `_preview-data.sh` before re-running the screenshot pipeline.
 
 ### ANSI parser quirk: bold-then-color order
 
@@ -137,12 +157,11 @@ The screenshot is composed of four blocks (top → bottom):
 
 When the palette or layout changes:
 
-1. Edit `src/palette/{dark,light}.ts` (palette change) or
-   `assets/preview.sh` (layout change).
-2. Re-run the pipeline above. Output paths are fixed; existing WebPs are
+1. Edit `src/palette/*.ts` (palette change) or `assets/preview.sh` (layout change).
+2. Run `deno task build` to refresh `assets/_preview-data.sh`.
+3. Re-run the pipeline above. Output paths are fixed; existing WebPs are
    overwritten in place.
-3. Commit the regenerated `assets/karma-{dark,light}.webp` together with
-   the source change.
+4. Commit the regenerated `assets/karma-*.webp` together with the source change.
 
 ## Validation
 
@@ -154,7 +173,7 @@ ls -lh assets/*.webp
 # Each WebP should render correctly when opened in Finder Preview
 # (sanity-check the layout, colors, and font readability).
 
-# Verify README still references both files:
+# Verify README still references all 6 files:
 grep -n 'karma-.*\.webp' README.md
 ```
 

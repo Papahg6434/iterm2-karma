@@ -28,8 +28,13 @@
 ├── assets/
 │   ├── SCREENSHOTS.md            # recipe для freeze-based превью
 │   ├── preview.sh                # true-color ANSI генератор для freeze --execute
+│   ├── _preview-data.sh          # AUTO-GENERATED: RGB triples для preview.sh (не править руками)
 │   ├── karma-dark.webp           # превью Karma Dark
-│   └── karma-light.webp          # превью Karma Light
+│   ├── karma-light.webp          # превью Karma Light
+│   ├── karma-dark-hc.webp        # превью Karma Dark HC
+│   ├── karma-light-hc.webp       # превью Karma Light HC
+│   ├── karma-dark-dimmed.webp    # превью Karma Dark Dimmed
+│   └── karma-light-dimmed.webp   # превью Karma Light Dimmed
 ├── src/
 │   ├── palette/
 │   │   ├── types.ts              # Palette, AnsiColors, UiColors, RgbComponents
@@ -40,9 +45,11 @@
 │   │   ├── dark-dimmed.ts        # darkDimmedPalette — spread override on darkPalette
 │   │   └── light-dimmed.ts       # lightDimmedPalette — spread override on lightPalette
 │   └── render/
-│       ├── color.ts              # parseHex(hex) -> RgbComponents
-│       ├── color.test.ts         # unit-тесты parseHex (23 кейса)
-│       └── itermcolors.ts        # renderItermcolors(palette) -> XML plist
+│       ├── color.ts              # parseHex(hex) -> RgbComponents, parseHexBytes(hex) -> RgbBytes
+│       ├── color.test.ts         # unit-тесты для color.ts
+│       ├── itermcolors.ts        # renderItermcolors(palette) -> XML plist
+│       ├── preview-data.ts       # paletteToShell, renderPreviewData -> assets/_preview-data.sh
+│       └── preview-data.test.ts  # unit-тесты для preview-data.ts
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                # CI: fmt/lint/check/test + idempotency + plist validation
@@ -61,7 +68,7 @@
 | `deno task fmt:check` | Проверка форматирования (CI gate) |
 | `deno task lint` | Линтинг |
 | `deno task check` | Type-check (strict mode) |
-| `deno task test` | 23 unit-теста для `parseHex` |
+| `deno task test` | 39 unit-тестов (parseHex, parseHexBytes, paletteToShell, renderPreviewData) |
 | `deno task build` | Генерирует `colors/karma-{dark,light}.itermcolors` |
 
 ## Конвенции

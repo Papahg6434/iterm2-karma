@@ -6,7 +6,7 @@
 
 import { assertAlmostEquals, assertEquals, assertThrows } from "@std/assert";
 
-import { parseHex } from "./color.ts";
+import { parseHex, parseHexBytes } from "./color.ts";
 
 const FLOAT_TOLERANCE = 1e-9;
 
@@ -130,4 +130,38 @@ Deno.test("parseHex: error message preserves original casing", () => {
   // assertThrows substring match is case-sensitive; this guards that we don't
   // lowercase the input before embedding it in the error message.
   assertThrows(() => parseHex("#GHIJKL"), Error, '"#GHIJKL"');
+});
+
+// --- parseHexBytes (raw 0..255 ints) ---------------------------------------
+
+Deno.test("parseHexBytes: returns raw integer bytes for lowercase hex", () => {
+  const result = parseHexBytes("#fc618d");
+  assertEquals(result, { r: 252, g: 97, b: 141 });
+});
+
+Deno.test("parseHexBytes: handles uppercase, no #, and whitespace identically", () => {
+  assertEquals(parseHexBytes("FC618D"), { r: 252, g: 97, b: 141 });
+  assertEquals(parseHexBytes("  #FC618D  "), { r: 252, g: 97, b: 141 });
+});
+
+Deno.test("parseHexBytes: returns 0,0,0 for #000000 and 255,255,255 for #ffffff", () => {
+  assertEquals(parseHexBytes("#000000"), { r: 0, g: 0, b: 0 });
+  assertEquals(parseHexBytes("#ffffff"), { r: 255, g: 255, b: 255 });
+});
+
+Deno.test("parseHexBytes: throws on invalid input with the same message as parseHex", () => {
+  assertThrows(
+    () => parseHexBytes("#abcde"),
+    Error,
+    'Invalid hex color: "#abcde"',
+  );
+});
+
+Deno.test("parseHex and parseHexBytes share validation (parity check)", () => {
+  // Any input rejected by parseHex must be rejected by parseHexBytes — and
+  // vice versa — because parseHex internally delegates to parseHexBytes.
+  for (const bad of ["", "#abc", "#zzzzzz", "rgb(1,2,3)", "#fc 618d"]) {
+    assertThrows(() => parseHex(bad));
+    assertThrows(() => parseHexBytes(bad));
+  }
 });

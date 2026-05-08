@@ -21,6 +21,31 @@ Karma is a VS Code theme inspired by Ayu, Lucy, and Andromeda — vibrant accent
   <em>☀️ Karma Light</em>
 </p>
 
+### Variants showcase
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/karma-dark-hc.webp" alt="Karma Dark HC" width="100%"><br>
+      <em>Karma Dark HC</em>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/karma-light-hc.webp" alt="Karma Light HC" width="100%"><br>
+      <em>Karma Light HC</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/karma-dark-dimmed.webp" alt="Karma Dark Dimmed" width="100%"><br>
+      <em>Karma Dark Dimmed</em>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/karma-light-dimmed.webp" alt="Karma Light Dimmed" width="100%"><br>
+      <em>Karma Light Dimmed</em>
+    </td>
+  </tr>
+</table>
+
 ## Installation
 
 1. Download a variant from [`colors/`](./colors) — see the table below for guidance.
